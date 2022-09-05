@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace PBancoMorangao
 {
-    internal class ContaPoupanca
+    internal class ContaPoupanca : Conta
     {
         public double SaldoP { get; set; }
+
+
+        public ContaPoupanca()
+        {
+
+        }
+
     }
-
-
 }

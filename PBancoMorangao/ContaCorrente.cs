@@ -24,6 +24,25 @@ namespace PBancoMorangao
             this.LimiteContaCorrente = limiteContaCorrente; 
         }
 
-        
+        public void ConsultarLimiteChequeEspecial()
+        {
+            //com base nos criterios de conta 
+        }
+
+        public void RealizarPagamentos()
+        {
+
+        }
+
+        public void RealizarEmprestimos()
+        {
+
+        }
+
+        public void ConsultarEmprestimo()
+        {
+
+        }
+
     }
 }

@@ -13,7 +13,6 @@ namespace PBancoMorangao
 
         public string Gerente { get; set; }
 
-
         public Funcionario()
         {
 
@@ -24,7 +23,6 @@ namespace PBancoMorangao
             this.Cargo = cargo;
 
         }
-
 
         public void CadastrarFuncionario()
         {
@@ -48,29 +46,31 @@ namespace PBancoMorangao
 
         }
 
-        public void AprovarAberturaConta()
+        public void AnalisarSolicitacaoAberturaConta(Cliente cliente)
+        {
+            //condiçoes de universitário, normal, vip
+        }
+
+        public void AprovarAberturaConta() //gerente 
         {
             Console.WriteLine("O gerente autorizou sua conta");
         }
 
         Cliente cliente = new Cliente();
-        public void VerificarEmprestimo(Cliente cliente) //funcionario verifica empréstimo
+
+        public void VerificarEmprestimo(Cliente cliente) //funcionario 
         {
-            if (cliente.SolicitarEmpréstimo() == true)
-            {
-                //Critérios de empréstimo
-            }
+            /* if (cliente.SolicitarEmpréstimo() == true)
+             {
+                 if (cliente.Renda
+             }*/
         }
 
-       
+        public void AprovarEmprestimo() //gerente 
+        {
 
-        /*  public void AnalisarSolicitacaoAberturaConta(Cliente cliente)
-          {
-              int tipoConta = 1;
-              if(cliente.Renda < 300 &&
-              {
+        }
 
-              }*/
     }
 }
 

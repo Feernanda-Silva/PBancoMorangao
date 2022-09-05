@@ -8,7 +8,6 @@ namespace PBancoMorangao
 {
     internal class Pessoa
     {
-
         public String Nome { get; set; }
         public DateTime DataNascimento { get; set; }
         public Endereco endereco { get; set; }
@@ -35,7 +34,6 @@ namespace PBancoMorangao
         public void CadastrarPessoa()
         {
             this.endereco = new Endereco();
-
             Console.WriteLine("Nome: ");
             this.Nome = Console.ReadLine();
             Console.WriteLine("Data de nascimento");
@@ -51,7 +49,6 @@ namespace PBancoMorangao
 
         public void ImprimirCadastro()
         {
-           
             Console.WriteLine("Nome: " + this.Nome);
             Console.WriteLine("Data de nascimento: " + this.DataNascimento);
             endereco.ImprimirEndereco();

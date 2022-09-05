@@ -21,11 +21,9 @@ namespace PBancoMorangao
         {
             this.Renda = renda;
             this.Perfil = perfil;
-            this.Estudante = estudante; 
+            this.Estudante = estudante;
         }
 
-      
-        
         public bool SolicitarAberturaConta()
         {
 
@@ -39,7 +37,7 @@ namespace PBancoMorangao
                 Console.WriteLine("Escolha o perfil desejado (Universitário/ Normal/ Vip): ");
                 this.Perfil = Console.ReadLine();
                 Console.WriteLine("Você é estudante? (Responda: Sim ou Não) : ");
-                this.Estudante = Console.ReadLine();    
+                this.Estudante = Console.ReadLine();
                 Console.WriteLine("Solicitação enviada");
                 return true;
             }
@@ -52,7 +50,8 @@ namespace PBancoMorangao
         }
 
         public bool SolicitarEmpréstimo()
-        {
+        {   
+            
             Console.WriteLine("Solicitação de empréstimo enviada");
             return true;
         }
