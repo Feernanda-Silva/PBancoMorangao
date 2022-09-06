@@ -12,6 +12,8 @@ namespace PBancoMorangao
         public String Perfil { get; set; }
         public String Estudante { get; set; }
 
+        public String Status { get; set; } = "Não aprovado"; 
+
         public Cliente()
         {
 
@@ -24,44 +26,23 @@ namespace PBancoMorangao
             this.Estudante = estudante;
         }
 
+        public void CadastroCliente()
+        {
+            Console.WriteLine("Digite sua renda: ");
+            this.Renda = double.Parse(Console.ReadLine());
+            Console.WriteLine("Escolha o perfil desejado (Universitário/ Normal/ Vip): ");
+            this.Perfil = Console.ReadLine();
+            Console.WriteLine("Você é estudante? (Responda: Sim ou Não) : ");
+            this.Estudante = Console.ReadLine();
+
+        }
         public bool SolicitarAberturaConta()
         {
-
-            Console.WriteLine("Deseja solicitar abertura de conta (Digite Sim ou Não) ?");
-            string abertura = Console.ReadLine();
-
-            if (abertura == "Sim")
-            {
-                Console.WriteLine("Digite sua renda: ");
-                this.Renda = double.Parse(Console.ReadLine());
-                Console.WriteLine("Escolha o perfil desejado (Universitário/ Normal/ Vip): ");
-                this.Perfil = Console.ReadLine();
-                Console.WriteLine("Você é estudante? (Responda: Sim ou Não) : ");
-                this.Estudante = Console.ReadLine();
-                Console.WriteLine("Solicitação enviada");
-                return true;
-            }
-
-            else
-            {
-                Console.WriteLine("Solicitação cancelada");
-                return false;
-            }
-        }
-
-        public bool SolicitarEmpréstimo()
-        {   
-            
-            Console.WriteLine("Solicitação de empréstimo enviada");
-            return true;
-        }
-
-        public bool SolicitarDesbloquearCartão()
-        {
-            Console.WriteLine("Cartão Desbloqueado");
             return true;
         }
 
     }
+
 }
+
 

@@ -11,8 +11,6 @@ namespace PBancoMorangao
         public String Cargo { get; set; }
         public Agencia agencia { get; set; }
 
-        public string Gerente { get; set; }
-
         public Funcionario()
         {
 
@@ -29,47 +27,100 @@ namespace PBancoMorangao
             agencia = new Agencia();
             Console.WriteLine("Cargo (Normal / Gerente): ");
             this.Cargo = Console.ReadLine();
-            agencia.CadastrarAgencia();
+            // escolher entre as agencias já cadastradas agencia.CadastrarAgencia();
         }
 
-        public void VerificarTipoFuncionario()
+        public void ImprimirCadastroFuncionario()
         {
-            if (this.Cargo == "Normal")
+            Console.WriteLine("Cargo: " + this.Cargo);
+            //agencia.ImprimirAgencia();
+        }
+
+        public void VerificarTipoFuncionario(Cliente cliente, string tipoConta, ContaCorrente contaCC, ContaPoupanca contaP)
+        {
+            if (this.Cargo == "Gerente")
             {
-                Console.WriteLine("Você não pode autorizar essa conta");
+                AprovarAberturaConta(cliente, tipoConta, contaCC, contaP);
+               
             }
 
             else
             {
-                AprovarAberturaConta();
+
+                Console.WriteLine("Você não pode autorizar essa conta");
+
             }
 
         }
 
-        public void AnalisarSolicitacaoAberturaConta(Cliente cliente)
+        public string AnalisarSolicitacaoAberturaConta(Cliente cliente)
         {
-            //condiçoes de universitário, normal, vip
+            if (cliente.SolicitarAberturaConta() == true)
+            {   
+                if (cliente.Renda <= 500 && cliente.Estudante == "Sim")
+                {
+                    Console.WriteLine("Conta universitária");
+                    return "Conta Universitária"; 
+
+                }
+
+                else if (cliente.Renda > 500 && cliente.Renda <1000)
+                {
+                    Console.WriteLine("Conta Normal");
+                    return "Conta Normal"; 
+                }
+
+                else if (cliente.Renda >= 1000)
+                {
+                    Console.WriteLine("Conta Vip");
+                    return "Conta Vip"; 
+                }
+
+                else
+                {
+                    Console.WriteLine("Não há solicitações de conta");
+                    return "Sem solicitação"; 
+                }
+
+               
+            }
+
+            return null;
         }
 
-        public void AprovarAberturaConta() //gerente 
+        public void AprovarAberturaConta(Cliente cliente, string tipoConta, ContaCorrente contaCC, ContaPoupanca contaP) // gerente 
         {
-            Console.WriteLine("O gerente autorizou sua conta");
-        }
+            Console.WriteLine("Deseja aprovar abertura da conta? (Sim / Não: ");
+            string abertura = Console.ReadLine();
 
-        Cliente cliente = new Cliente();
+            if (abertura =="Sim")
+            {
+                Console.WriteLine("Sua conta foi aprovada!"); 
+                cliente.Status = "Aprovada";
+                Console.WriteLine("Digite o numero da conta: ");
+                long numeroConta = long.Parse(Console.ReadLine());
+                Console.WriteLine("Digite a senha de 4 digitos: ");
+                int senha = int.Parse(Console.ReadLine());
+                double saldo = 0;
+                Console.WriteLine("Digite o limite do cheque especial: ");
+                double limiteChequeEspecial = double.Parse(Console.ReadLine()); 
+                contaCC.NumeroConta = numeroConta;  
+                contaCC.Saldo = saldo;  
+                contaCC.LimiteChequeEspecial = limiteChequeEspecial;    
+                contaCC.TipoConta = tipoConta;
+                contaP.NumeroConta = numeroConta;
+                contaP.Saldo = saldo;
+                contaP.Senha = senha; 
+             
+            }
 
-        public void VerificarEmprestimo(Cliente cliente) //funcionario 
-        {
-            /* if (cliente.SolicitarEmpréstimo() == true)
-             {
-                 if (cliente.Renda
-             }*/
-        }
-
-        public void AprovarEmprestimo() //gerente 
-        {
-
-        }
+            else
+            {
+                Console.WriteLine("Sua conta não foi aprovada");
+              
+            }
+            
+        } 
 
     }
 }

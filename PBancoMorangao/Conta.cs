@@ -4,15 +4,23 @@ namespace PBancoMorangao
 {
     internal class Conta
     {
-        public int TipoConta { get; set; }
+        public string TipoConta { get; set; }
         public long NumeroConta { get; set; }
         public int Senha { get; set; }
-        public CartaoCredito cartaoCredito { get; set; }
         public double Saldo { get; set; }
+
 
         public Conta()
         {
 
+        }
+
+        public Conta(string tipoConta, long numeroConta, int senha,  double saldo)
+        {
+            this.TipoConta = tipoConta;
+            this.NumeroConta = numeroConta;
+            this.Senha = senha;
+            this.Saldo = saldo;
         }
 
         public void EfetuarLogin(Cliente cliente)
@@ -21,18 +29,15 @@ namespace PBancoMorangao
             this.NumeroConta = long.Parse(Console.ReadLine());
             Console.Write("Digite a senha: "); 
             this.Senha = int.Parse(Console.ReadLine()); 
+            //agencia 
         }
         public void ConsultarSaldo()
         {
             Console.WriteLine("Saldo: " + this.Saldo);
         }
 
-        public void ConsultarExtrato()
-        {
-            //lista dos saques, depositos, transferencias
-        }
 
-        public void Sacar()
+        public virtual void Sacar()
         {
             Console.WriteLine("Digite o valor do saque: ");
             double saque = double.Parse(Console.ReadLine());

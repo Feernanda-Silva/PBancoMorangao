@@ -6,173 +6,219 @@ namespace PBancoMorangao
     {
         static void Main(string[] args)
         {
-            Pessoa pessoa = new Pessoa();
+            
             Cliente cliente = new Cliente();
             Funcionario funcionario = new Funcionario();
             Agencia agencia = new Agencia();
-            Conta conta = new Conta();
-            ContaCorrente contaCC = new ContaCorrente();
+            ContaCorrente contaCC = new ContaCorrente(); 
             ContaPoupanca contaP = new ContaPoupanca();
 
             MenuInicial();
 
             void MenuInicial()
             {
+                Console.Clear();
                 Console.WriteLine("Menu Inicial");
                 Console.WriteLine("Selecione a opção desejada");
-                Console.WriteLine("1-Cliente\n2-Funcionário");
-                int opcao = int.Parse(Console.ReadLine());
-                MenuOpcoes(opcao);
-            }
+                Console.WriteLine("1-Cliente");
+                Console.WriteLine("2-Funcionário");
 
-            void MenuOpcoes(int opcao)
-            {
+                int opcao = int.Parse(Console.ReadLine());
+
                 if (opcao == 1)
                 {
-                    Console.WriteLine("Menu cliente");
-                    Console.WriteLine("Selecione a opção desejada:");
-                    Console.WriteLine("1-Cadastrar Cliente\n2-Imprimir Cadastro do Cliente" +
-                        "\n3-Solicitar abertura \n4-Verificar solicitação de abertura de conta" +
-                        "\n5-Login");
-                    int menuCliente = int.Parse(Console.ReadLine());
-
-                    switch (menuCliente)
-                    {
-                        case 1:
-                            cliente.CadastrarPessoa();
-                            break;
-                        case 2:
-                            cliente.ImprimirCadastro();
-                            break;
-                        case 3:
-                            cliente.SolicitarAberturaConta();
-                            break;
-                        case 4:
-                            // funcionario.VerificarTipoConta(cliente);
-                            break;
-                        case 5:
-                            conta.EfetuarLogin(cliente);
-                            AcessoConta();
-                           
-                            void AcessoConta ()
-                            {
-                                Console.WriteLine("Digite a conta que deseja: ");
-                                Console.WriteLine("1-Conta Corrente");
-                                Console.WriteLine("2-Conta Poupança");
-                                int opcaoConta = int.Parse(Console.ReadLine());
-
-                                if (opcaoConta == 1)
-                                {
-                                    int opcaoCC;
-
-                                    do
-                                    {
-                                        Console.WriteLine("0-Sair");
-                                        Console.WriteLine("1-Consultar Saldo");
-                                        Console.WriteLine("2-Consultar Extrato");
-                                        Console.WriteLine("3-Sacar");
-                                        Console.WriteLine("4-Depositar");
-                                        Console.WriteLine("5-Transferir");
-                                        Console.WriteLine("6-Realizar Pagamentos");
-                                        Console.WriteLine("7-Realizar Empréstimos");
-                                        Console.WriteLine("8-Consultar Empréstimos");
-                                        opcaoCC = int.Parse(Console.ReadLine());
-
-                                        switch (opcaoCC)
-                                        {
-                                            case 1:
-                                                contaCC.ConsultarSaldo();
-                                                break;
-                                            case 2:
-                                                contaCC.ConsultarExtrato();
-                                                break;
-                                            case 3:
-                                                contaCC.Sacar();
-                                                break;
-                                            case 4:
-                                                contaCC.Depositar();
-                                                break;
-                                            case 5:
-                                                contaCC.Transferir();
-                                                break;
-                                            case 6: //contaCC.RealizarPagamentos();
-                                                break;
-                                            case 7: //contaCC.RealizarEmprestimo();
-                                                break;
-                                            case 8: //contaCC.ConsultarEmprestimo(); 
-                                                break;
-                                        }
-
-                                    } while (opcaoCC != 0);
-                                }
-
-                                else
-                                {
-                                    do
-                                    {
-                                        Console.WriteLine("0-Sair");
-                                        Console.WriteLine("1-Consultar Saldo");
-                                        Console.WriteLine("2-Consultar Extrato");
-                                        Console.WriteLine("3-Sacar");
-                                        Console.WriteLine("4-Depositar");
-                                        Console.WriteLine("5-Transferir");
-                                        int opcaoP = int.Parse(Console.ReadLine());
-
-                                        switch (opcaoP)
-                                        {
-                                            case 1:
-                                                contaP.ConsultarSaldo();
-                                                break;
-                                            case 2:
-                                                contaP.ConsultarExtrato();
-                                                break;
-                                            case 3:
-                                                contaP.Sacar();
-                                                break;
-                                            case 4:
-                                                contaP.Depositar();
-                                                break;
-                                            case 5:
-                                                contaP.Transferir();
-                                                break;
-
-                                        }
-
-                                    } while (opcao != 0);
-
-                                }
-                            }
-                            break;
-                    }
+                    MenuCliente();
                 }
 
                 else
                 {
+                    MenuFuncionario();
+                }
+
+            }
+
+            void MenuCliente()
+            {
+                int opcCliente;
+                do
+                {
+                    Console.WriteLine("Menu cliente");
+                    Console.WriteLine("Selecione a opção desejada:");
+                    Console.WriteLine("0-Sair");
+                    Console.WriteLine("1-Voltar ao Menu Inicial");
+                    Console.WriteLine("2-Solicitar Abertura de conta");
+                    Console.WriteLine("3-Efetuar login");
+
+                    opcCliente = int.Parse(Console.ReadLine());
+
+                    switch (opcCliente)
+                    {
+                        case 1:
+                            MenuInicial();
+                            break;
+                        case 2:
+                            Console.WriteLine("Solicitação enviada!");
+                            cliente.SolicitarAberturaConta();
+                            break;
+                        case 3:
+                           contaCC.EfetuarLogin(cliente);
+                            Console.Clear();
+                            Console.WriteLine("Escolha o tipo de conta: ");
+                            Console.WriteLine("1-Conta Corrente");
+                            Console.WriteLine("2-Conta Poupança");
+                            int opc = int.Parse(Console.ReadLine());
+
+                            if (opc == 1)
+                            {
+                                AcessoContaCorrente();
+                            }
+
+                            else
+                            {
+                                AcessoContaP();
+                            }
+                            break;
+                    }
+                } while (opcCliente != 0);
+            }
+
+
+            void MenuFuncionario()
+            {
+                
+                int menuFuncionario;
+
+                do
+                {
+                    string tipoConta = ""; 
                     Console.WriteLine("Menu funcionario");
                     Console.WriteLine("Selecione a opção desejada: ");
-                    Console.WriteLine("1-Cadastrar Funcionario\n2-Imprimir Cadastro do Funcionário\n3-Analisar solicitação de abertura de conta(Gerente)");
-                    int menuFuncionario = int.Parse(Console.ReadLine());
+                    Console.WriteLine("0-Sair");
+                    Console.WriteLine("1-Voltar ao menu inicial");
+                    Console.WriteLine("2-Cadastrar Cliente");
+                    Console.WriteLine("3-Imprimir Cadastro de Cliente");
+                    Console.WriteLine("4-Cadastar Funcionário");
+                    Console.WriteLine("5-Imprimir Cadastro de Funcionário");
+                    Console.WriteLine("6-Analisar Solicitação de abertura de conta(Funcionario)");
+                    Console.WriteLine("7-Aprovar Abertura de Conta(Gerente)");
+
+                    menuFuncionario = int.Parse(Console.ReadLine());
 
                     switch (menuFuncionario)
                     {
                         case 1:
-                            cliente.CadastrarPessoa();
-                            funcionario.CadastrarFuncionario();
+                            MenuInicial();
                             break;
                         case 2:
-                            funcionario.ImprimirCadastro();
+                            cliente.CadastrarPessoa();
+                            cliente.CadastroCliente();
                             break;
                         case 3:
-                            funcionario.VerificarTipoFuncionario();
+                            cliente.ImprimirCadastro();
                             break;
                         case 4:
-                            // funcionario.VerificarTipoConta(cliente);
+                            funcionario.CadastrarPessoa();
+                            funcionario.CadastrarFuncionario();
+                            break;
+                        case 5:
+                            funcionario.ImprimirCadastro();
+                            funcionario.ImprimirCadastroFuncionario();
+                            break;
+                        case 6:
+                            tipoConta = funcionario.AnalisarSolicitacaoAberturaConta(cliente);
+                            break;
+                        case 7:
+                            funcionario.VerificarTipoFuncionario(cliente, tipoConta, contaCC, contaP);
                             break;
 
                     }
-                }
+                } while (menuFuncionario != 0);
+            }
+
+            void AcessoContaCorrente()
+            {
+                Console.Clear();
+                int opcaoCC;
+
+                do
+                {
+                 
+                    Console.WriteLine("0-Sair");
+                    Console.WriteLine("1-Voltar ao Menu Inicial");
+                    Console.WriteLine("2-Consultar Saldo");
+                    Console.WriteLine("3-Consultar Limite Cheque Especial"); 
+                    Console.WriteLine("4-Sacar");
+                    Console.WriteLine("5-Depositar");
+                    Console.WriteLine("6-Transferir");
+                    
+                    opcaoCC = int.Parse(Console.ReadLine());
+
+
+                    switch (opcaoCC)
+                    {
+                        case 1:
+                            MenuInicial();
+                            break;
+                        case 2:
+                            contaCC.ConsultarSaldo();
+                            break;
+                        case 3:
+                            contaCC.ConsultarLimiteChequeEspecial();
+                            break;
+                        case 4:  
+                            contaCC.Sacar();
+                            break;
+                        case 5:
+                            contaCC.Depositar();
+                            break;
+                        case 6:
+                            contaCC.Transferir();
+                            break;
+
+                    }
+
+                } while (opcaoCC != 0);
+            }
+
+            void AcessoContaP()
+            {
+                Console.Clear();
+                int opcaoP;
+                do
+                {
+                    Console.WriteLine("0-Sair");
+                    Console.WriteLine("1-Consultar Saldo");
+                    Console.WriteLine("2-Sacar");
+                    Console.WriteLine("3-Depositar");
+                    Console.WriteLine("4-Transferir");
+                    opcaoP = int.Parse(Console.ReadLine());
+
+                    switch (opcaoP)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            contaP.ConsultarSaldo();
+                            break;
+                        case 2:
+                            contaP.Sacar();
+                            break;
+                        case 3:
+                            contaP.Depositar();
+                            break;
+                        case 4:
+                            contaP.Transferir();
+                            break;
+                    }
+
+                } while (opcaoP != 0);
+
             }
         }
+
     }
 }
+
+
+
 

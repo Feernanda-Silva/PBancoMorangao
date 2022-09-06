@@ -9,39 +9,30 @@ namespace PBancoMorangao
     internal class ContaCorrente: Conta
     {
         public double LimiteChequeEspecial { get; set; }
-        public double SaldoCC { get; set; }
-
-        public long LimiteContaCorrente { get; set; }
 
         public ContaCorrente()
         {
 
         }
-        public ContaCorrente (long limiteChequeEspecial, long saldo, long limiteContaCorrente)
-        {
+
+        public ContaCorrente(string tipoConta, long numeroConta, int senha, double saldo, double limiteChequeEspecial) : base (tipoConta, numeroConta, senha, saldo)
+        {   
+
             this.LimiteChequeEspecial = limiteChequeEspecial;
-            this.SaldoCC = saldo;
-            this.LimiteContaCorrente = limiteContaCorrente; 
+            
+            
         }
 
         public void ConsultarLimiteChequeEspecial()
         {
-            //com base nos criterios de conta 
+           Console.WriteLine("Limite cheque especial: "+this.LimiteChequeEspecial);
         }
 
-        public void RealizarPagamentos()
+
+        public override void Sacar()
         {
-
-        }
-
-        public void RealizarEmprestimos()
-        {
-
-        }
-
-        public void ConsultarEmprestimo()
-        {
-
+            Console.WriteLine("Sacar"); 
+                base.Sacar();   
         }
 
     }
