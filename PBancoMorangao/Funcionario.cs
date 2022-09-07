@@ -23,6 +23,7 @@ namespace PBancoMorangao
 
         public void CadastrarFuncionario()
         {
+            base.CadastrarPessoa();
             agencia = new Agencia();
             Console.WriteLine("Cargo (Normal / Gerente): ");
             this.Cargo = Console.ReadLine();
@@ -31,20 +32,22 @@ namespace PBancoMorangao
 
         public void ImprimirCadastroFuncionario()
         {
+            base.ImprimirCadastro();
             Console.WriteLine("Cargo: " + this.Cargo);
             //agencia.ImprimirAgencia();
         }
 
-        public void VerificarTipoFuncionario(Cliente cliente, string tipoConta, ContaCorrente contaCC, ContaPoupanca contaP)
+        public  bool VerificarTipoFuncionario(Cliente cliente, string tipoConta)
         {
             if (this.Cargo == "Gerente")
             {
-                AprovarAberturaConta(cliente, tipoConta, contaCC, contaP);
+                return true;
             }
 
             else
             {
                 Console.WriteLine("Você não pode autorizar essa conta");
+                return false;
             }
         }
 
@@ -79,36 +82,17 @@ namespace PBancoMorangao
             return null;
         }
 
-        public void AprovarAberturaConta(Cliente cliente, string tipoConta, ContaCorrente contaCC, ContaPoupanca contaP) // gerente 
+
+        public ContaCorrente AprovarAberturaContaCC(Cliente cliente, string tipoConta, long numeroConta, int senha, double saldo, double limiteChequeEspecial) // gerente 
+        { 
+            ContaCorrente contaCC = new ContaCorrente(tipoConta, numeroConta, senha, saldo, limiteChequeEspecial);
+            return contaCC;
+        }
+
+        public ContaPoupanca AprovarAberturaContaP(Cliente cliente, string tipoConta, long numeroConta, int senha, double saldo) // gerente 
         {
-            Console.WriteLine("Deseja aprovar abertura da conta? (Sim / Não: ");
-            string abertura = Console.ReadLine();
-
-            if (abertura == "Sim")
-            {
-                Console.WriteLine("Sua conta foi aprovada!");
-                cliente.Status = "Aprovada";
-                Console.WriteLine("Digite o numero da conta: ");
-                long numeroConta = long.Parse(Console.ReadLine());
-                Console.WriteLine("Digite a senha de 4 digitos: ");
-                int senha = int.Parse(Console.ReadLine());
-                double saldo = 0;
-                Console.WriteLine("Digite o limite do cheque especial: ");
-                double limiteChequeEspecial = double.Parse(Console.ReadLine());
-                contaCC.NumeroConta = numeroConta;
-                contaCC.Saldo = saldo;
-                contaCC.LimiteChequeEspecial = limiteChequeEspecial;
-                contaCC.TipoConta = tipoConta;
-                contaP.NumeroConta = numeroConta;
-                contaP.Saldo = saldo;
-                contaP.Senha = senha;
-
-            }
-
-            else
-            {
-                Console.WriteLine("Sua conta não foi aprovada");
-            }
+            ContaPoupanca contaP = new ContaPoupanca(tipoConta, numeroConta, senha, saldo);
+            return contaP;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PBancoMorangao
 {
@@ -6,11 +7,11 @@ namespace PBancoMorangao
     {
         static void Main(string[] args)
         {
-            Cliente cliente = new Cliente();
-            Funcionario funcionario = new Funcionario();
+            List<Cliente> clientes = new List<Cliente>();
+            List<Funcionario> funcionarios = new List<Funcionario>();
             Agencia agencia = new Agencia();
-            ContaCorrente contaCC = new ContaCorrente();
-            ContaPoupanca contaP = new ContaPoupanca();
+            List<ContaCorrente> contasCC = new List<ContaCorrente>();
+            List<ContaPoupanca> contasP = new List<ContaPoupanca>();
 
             MenuInicial();
 
@@ -36,6 +37,22 @@ namespace PBancoMorangao
 
             }
 
+            Funcionario EncontrarFuncionario()
+            {
+                Console.WriteLine("Digite o cpf do funcionario: ");
+                long cpf = long.Parse(Console.ReadLine());
+                Funcionario encontrouFuncionario = funcionarios.Find(funcionario => funcionario.Cpf == cpf);
+                return encontrouFuncionario;
+            }
+
+            Cliente EncontrarCliente()
+            {
+                Console.WriteLine("Digite o cpf do cliente: ");
+                long cpf = long.Parse(Console.ReadLine());
+                Cliente encontrouCliente = clientes.Find(cliente => cliente.Cpf == cpf);
+                return encontrouCliente;
+            }
+
             void MenuCliente()
             {
                 int opcCliente;
@@ -56,11 +73,35 @@ namespace PBancoMorangao
                             MenuInicial();
                             break;
                         case 2:
-                            Console.WriteLine("Solicitação enviada!");
-                            cliente.SolicitarAberturaConta();
+                            Cliente encontrouCliente = EncontrarCliente();
+
+                            if (encontrouCliente == null)
+                            {
+                                Console.WriteLine("Cliente não cadastrado");
+                            }
+
+                            else
+                            {
+                                encontrouCliente.SolicitarAberturaConta();
+                                Console.WriteLine("Solicitação enviada!");
+                            }
+
+
                             break;
                         case 3:
-                            contaCC.EfetuarLogin(cliente);
+                            Console.WriteLine("Digite o numero da conta: ");
+                            long numeroConta = long.Parse(Console.ReadLine());
+                            ContaCorrente encontrouConta = contasCC.Find(contasCC => contasCC.NumeroConta == numeroConta);
+                            ContaPoupanca encontrouContaP = contasP.Find(contasP => contasP.NumeroConta == numeroConta);
+                            if (encontrouConta == null)
+                            {
+                                Console.WriteLine("Não possui conta");
+                            }
+                            else
+                            {
+                                encontrouConta.EfetuarLogin();
+                            }
+
                             Console.Clear();
                             Console.WriteLine("Escolha o tipo de conta: ");
                             Console.WriteLine("1-Conta Corrente");
@@ -69,12 +110,12 @@ namespace PBancoMorangao
 
                             if (opc == 1)
                             {
-                                AcessoContaCorrente();
+                                AcessoContaCorrente(encontrouConta);
                             }
 
                             else
                             {
-                                AcessoContaP();
+                                AcessoContaP(encontrouContaP);
                             }
 
                             break;
@@ -109,32 +150,78 @@ namespace PBancoMorangao
                             MenuInicial();
                             break;
                         case 2:
-                            cliente.CadastrarPessoa();
-                            cliente.CadastroCliente();
+                            Cliente cliente = new Cliente();
+                            cliente.CadastrarCliente();
+                            clientes.Add(cliente);
                             break;
                         case 3:
-                            cliente.ImprimirCadastro();
+                            Cliente encontrouCliente = EncontrarCliente();
+
+                            if (encontrouCliente == null)
+                            {
+                                Console.WriteLine("Cliente não encontrado");
+                            }
+
+                            else
+                            {
+                                encontrouCliente.ImprimirCadastroCliente();
+                            }
+
                             break;
                         case 4:
-                            funcionario.CadastrarPessoa();
+                            Funcionario funcionario = new Funcionario();
                             funcionario.CadastrarFuncionario();
+                            funcionarios.Add(funcionario);
                             break;
                         case 5:
-                            funcionario.ImprimirCadastro();
-                            funcionario.ImprimirCadastroFuncionario();
+
+                            Funcionario encontrouFuncionario = EncontrarFuncionario();
+
+                            if (encontrouFuncionario == null)
+                            {
+                                Console.WriteLine("Cliente não encontrado");
+                            }
+
+                            else
+                            {
+                                encontrouFuncionario.ImprimirCadastroFuncionario();
+                            }
+
                             break;
                         case 6:
-                            tipoConta = funcionario.AnalisarSolicitacaoAberturaConta(cliente);
+                            Funcionario encontrouFuncionario2 = EncontrarFuncionario();
+                            Cliente encontrarCliente = EncontrarCliente();
+                            tipoConta = encontrouFuncionario2.AnalisarSolicitacaoAberturaConta(encontrarCliente);
+
                             break;
                         case 7:
-                            funcionario.VerificarTipoFuncionario(cliente, tipoConta, contaCC, contaP);
+                            Funcionario encontrouFuncionario3 = EncontrarFuncionario();
+                            Cliente encontrarCliente2 = EncontrarCliente();
+                            bool tipoFuncionario = encontrouFuncionario3.VerificarTipoFuncionario(encontrarCliente2, tipoConta);
+                            if (tipoFuncionario == true)
+                            {
+                                Console.WriteLine("Sua conta foi aprovada!");
+                                encontrarCliente2.Status = "Aprovada";
+                                Console.WriteLine("Digite o numero da conta: ");
+                                long numeroConta = long.Parse(Console.ReadLine());
+                                Console.WriteLine("Digite a senha de 4 digitos: ");
+                                int senha = int.Parse(Console.ReadLine());
+                                double saldo = 0;
+                                Console.WriteLine("Digite o limite do cheque especial: ");
+                                double limiteChequeEspecial = double.Parse(Console.ReadLine());
+
+                                ContaCorrente novaContacc = encontrouFuncionario3.AprovarAberturaContaCC(encontrarCliente2, tipoConta, numeroConta, senha, saldo, limiteChequeEspecial);
+                                contasCC.Add(novaContacc);
+                                ContaPoupanca novaContaP = encontrouFuncionario3.AprovarAberturaContaP(encontrarCliente2, tipoConta, numeroConta, senha, saldo);
+                                contasP.Add(novaContaP);    
+                            }
                             break;
                     }
 
                 } while (menuFuncionario != 0);
             }
 
-            void AcessoContaCorrente()
+            void AcessoContaCorrente(ContaCorrente contaCC)
             {
                 Console.Clear();
                 int opcaoCC;
@@ -175,7 +262,7 @@ namespace PBancoMorangao
                 } while (opcaoCC != 0);
             }
 
-            void AcessoContaP()
+            void AcessoContaP(ContaPoupanca contaP)
             {
                 Console.Clear();
                 int opcaoP;
@@ -196,7 +283,7 @@ namespace PBancoMorangao
                             break;
                         case 1:
                             MenuInicial();
-                            break; 
+                            break;
                         case 2:
                             contaP.ConsultarSaldo();
                             break;

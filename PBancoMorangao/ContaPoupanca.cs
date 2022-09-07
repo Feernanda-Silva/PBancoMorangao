@@ -8,9 +8,13 @@ namespace PBancoMorangao
 {
     internal class ContaPoupanca : Conta
     {
-        public double SaldoP { get; set; }
 
         public ContaPoupanca()
+        {
+
+        }
+
+        public ContaPoupanca(string tipoConta, long numeroConta, int senha, double saldo) : base(tipoConta, numeroConta, senha,saldo)
         {
 
         }

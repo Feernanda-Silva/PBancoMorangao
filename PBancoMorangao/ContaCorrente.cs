@@ -34,10 +34,10 @@ namespace PBancoMorangao
 
             if (saque > this.Saldo && this.LimiteChequeEspecial >= saque)
             {
-                Console.WriteLine("Deseja usar o limite do cheque especial? 1-Sim / 2-Não ");
-                int resp = int.Parse(Console.ReadLine());
+                Console.WriteLine("Deseja usar o limite do cheque especial? Sim ou Não ");
+                string resp = Console.ReadLine();
 
-                if (resp == 1)
+                if (resp == "Sim")
                 {
                     limite = this.Saldo + this.LimiteChequeEspecial;
                     double saldoAtual = limite - saque;

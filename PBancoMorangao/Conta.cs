@@ -22,7 +22,7 @@ namespace PBancoMorangao
             this.Saldo = saldo;
         }
 
-        public void EfetuarLogin(Cliente cliente)
+        public void EfetuarLogin()
         {
             Console.WriteLine("Digite o numero da conta: ");
             this.NumeroConta = long.Parse(Console.ReadLine());
