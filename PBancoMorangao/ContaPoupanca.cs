@@ -10,13 +10,9 @@ namespace PBancoMorangao
     {
         public double SaldoP { get; set; }
 
-
         public ContaPoupanca()
         {
 
         }
-
-
-
     }
 }

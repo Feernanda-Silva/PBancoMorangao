@@ -9,13 +9,12 @@ namespace PBancoMorangao
         public int Senha { get; set; }
         public double Saldo { get; set; }
 
-
         public Conta()
         {
 
         }
 
-        public Conta(string tipoConta, long numeroConta, int senha,  double saldo)
+        public Conta(string tipoConta, long numeroConta, int senha, double saldo)
         {
             this.TipoConta = tipoConta;
             this.NumeroConta = numeroConta;
@@ -27,15 +26,14 @@ namespace PBancoMorangao
         {
             Console.WriteLine("Digite o numero da conta: ");
             this.NumeroConta = long.Parse(Console.ReadLine());
-            Console.Write("Digite a senha: "); 
-            this.Senha = int.Parse(Console.ReadLine()); 
+            Console.Write("Digite a senha: ");
+            this.Senha = int.Parse(Console.ReadLine());
             //agencia 
         }
         public void ConsultarSaldo()
         {
             Console.WriteLine("Saldo: " + this.Saldo);
         }
-
 
         public virtual void Sacar()
         {
@@ -64,7 +62,7 @@ namespace PBancoMorangao
             Console.WriteLine("Seu novo saldo é: " + this.Saldo);
         }
 
-        public void Transferir()
+        public virtual void Transferir()
         {
             Console.WriteLine("Valor a ser transferido: ");
             double transferencia = double.Parse(Console.ReadLine());

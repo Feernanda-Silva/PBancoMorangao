@@ -19,7 +19,6 @@ namespace PBancoMorangao
         public Funcionario(String nome, DateTime dataNascimento, Endereco endereco, long telefone, long cpf, long rg, String cargo, int agencia) : base(nome, dataNascimento, telefone, cpf, rg)
         {
             this.Cargo = cargo;
-
         }
 
         public void CadastrarFuncionario()
@@ -41,50 +40,42 @@ namespace PBancoMorangao
             if (this.Cargo == "Gerente")
             {
                 AprovarAberturaConta(cliente, tipoConta, contaCC, contaP);
-               
             }
 
             else
             {
-
                 Console.WriteLine("Você não pode autorizar essa conta");
-
             }
-
         }
 
         public string AnalisarSolicitacaoAberturaConta(Cliente cliente)
         {
             if (cliente.SolicitarAberturaConta() == true)
-            {   
+            {
                 if (cliente.Renda <= 500 && cliente.Estudante == "Sim")
                 {
                     Console.WriteLine("Conta universitária");
-                    return "Conta Universitária"; 
-
+                    return "Conta Universitária";
                 }
 
-                else if (cliente.Renda > 500 && cliente.Renda <1000)
+                else if (cliente.Renda > 500 && cliente.Renda < 1000)
                 {
                     Console.WriteLine("Conta Normal");
-                    return "Conta Normal"; 
+                    return "Conta Normal";
                 }
 
                 else if (cliente.Renda >= 1000)
                 {
                     Console.WriteLine("Conta Vip");
-                    return "Conta Vip"; 
+                    return "Conta Vip";
                 }
 
                 else
                 {
                     Console.WriteLine("Não há solicitações de conta");
-                    return "Sem solicitação"; 
+                    return "Sem solicitação";
                 }
-
-               
             }
-
             return null;
         }
 
@@ -93,9 +84,9 @@ namespace PBancoMorangao
             Console.WriteLine("Deseja aprovar abertura da conta? (Sim / Não: ");
             string abertura = Console.ReadLine();
 
-            if (abertura =="Sim")
+            if (abertura == "Sim")
             {
-                Console.WriteLine("Sua conta foi aprovada!"); 
+                Console.WriteLine("Sua conta foi aprovada!");
                 cliente.Status = "Aprovada";
                 Console.WriteLine("Digite o numero da conta: ");
                 long numeroConta = long.Parse(Console.ReadLine());
@@ -103,25 +94,22 @@ namespace PBancoMorangao
                 int senha = int.Parse(Console.ReadLine());
                 double saldo = 0;
                 Console.WriteLine("Digite o limite do cheque especial: ");
-                double limiteChequeEspecial = double.Parse(Console.ReadLine()); 
-                contaCC.NumeroConta = numeroConta;  
-                contaCC.Saldo = saldo;  
-                contaCC.LimiteChequeEspecial = limiteChequeEspecial;    
+                double limiteChequeEspecial = double.Parse(Console.ReadLine());
+                contaCC.NumeroConta = numeroConta;
+                contaCC.Saldo = saldo;
+                contaCC.LimiteChequeEspecial = limiteChequeEspecial;
                 contaCC.TipoConta = tipoConta;
                 contaP.NumeroConta = numeroConta;
                 contaP.Saldo = saldo;
-                contaP.Senha = senha; 
-             
+                contaP.Senha = senha;
+
             }
 
             else
             {
                 Console.WriteLine("Sua conta não foi aprovada");
-              
             }
-            
-        } 
-
+        }
     }
 }
 

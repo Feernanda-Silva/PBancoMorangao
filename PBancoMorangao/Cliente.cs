@@ -11,8 +11,7 @@ namespace PBancoMorangao
         public double Renda { get; set; }
         public String Perfil { get; set; }
         public String Estudante { get; set; }
-
-        public String Status { get; set; } = "Não aprovado"; 
+        public String Status { get; set; } = "Não aprovado";
 
         public Cliente()
         {
@@ -36,13 +35,12 @@ namespace PBancoMorangao
             this.Estudante = Console.ReadLine();
 
         }
+
         public bool SolicitarAberturaConta()
         {
             return true;
         }
-
     }
-
 }
 
 

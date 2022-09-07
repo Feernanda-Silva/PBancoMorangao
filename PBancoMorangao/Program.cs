@@ -6,11 +6,10 @@ namespace PBancoMorangao
     {
         static void Main(string[] args)
         {
-            
             Cliente cliente = new Cliente();
             Funcionario funcionario = new Funcionario();
             Agencia agencia = new Agencia();
-            ContaCorrente contaCC = new ContaCorrente(); 
+            ContaCorrente contaCC = new ContaCorrente();
             ContaPoupanca contaP = new ContaPoupanca();
 
             MenuInicial();
@@ -40,6 +39,7 @@ namespace PBancoMorangao
             void MenuCliente()
             {
                 int opcCliente;
+
                 do
                 {
                     Console.WriteLine("Menu cliente");
@@ -48,7 +48,6 @@ namespace PBancoMorangao
                     Console.WriteLine("1-Voltar ao Menu Inicial");
                     Console.WriteLine("2-Solicitar Abertura de conta");
                     Console.WriteLine("3-Efetuar login");
-
                     opcCliente = int.Parse(Console.ReadLine());
 
                     switch (opcCliente)
@@ -61,7 +60,7 @@ namespace PBancoMorangao
                             cliente.SolicitarAberturaConta();
                             break;
                         case 3:
-                           contaCC.EfetuarLogin(cliente);
+                            contaCC.EfetuarLogin(cliente);
                             Console.Clear();
                             Console.WriteLine("Escolha o tipo de conta: ");
                             Console.WriteLine("1-Conta Corrente");
@@ -77,20 +76,21 @@ namespace PBancoMorangao
                             {
                                 AcessoContaP();
                             }
+
                             break;
                     }
+
                 } while (opcCliente != 0);
             }
 
-
             void MenuFuncionario()
             {
-                
+
                 int menuFuncionario;
 
                 do
                 {
-                    string tipoConta = ""; 
+                    string tipoConta = "";
                     Console.WriteLine("Menu funcionario");
                     Console.WriteLine("Selecione a opção desejada: ");
                     Console.WriteLine("0-Sair");
@@ -101,7 +101,6 @@ namespace PBancoMorangao
                     Console.WriteLine("5-Imprimir Cadastro de Funcionário");
                     Console.WriteLine("6-Analisar Solicitação de abertura de conta(Funcionario)");
                     Console.WriteLine("7-Aprovar Abertura de Conta(Gerente)");
-
                     menuFuncionario = int.Parse(Console.ReadLine());
 
                     switch (menuFuncionario)
@@ -130,8 +129,8 @@ namespace PBancoMorangao
                         case 7:
                             funcionario.VerificarTipoFuncionario(cliente, tipoConta, contaCC, contaP);
                             break;
-
                     }
+
                 } while (menuFuncionario != 0);
             }
 
@@ -142,17 +141,14 @@ namespace PBancoMorangao
 
                 do
                 {
-                 
                     Console.WriteLine("0-Sair");
                     Console.WriteLine("1-Voltar ao Menu Inicial");
                     Console.WriteLine("2-Consultar Saldo");
-                    Console.WriteLine("3-Consultar Limite Cheque Especial"); 
+                    Console.WriteLine("3-Consultar Limite Cheque Especial");
                     Console.WriteLine("4-Sacar");
                     Console.WriteLine("5-Depositar");
                     Console.WriteLine("6-Transferir");
-                    
                     opcaoCC = int.Parse(Console.ReadLine());
-
 
                     switch (opcaoCC)
                     {
@@ -165,7 +161,7 @@ namespace PBancoMorangao
                         case 3:
                             contaCC.ConsultarLimiteChequeEspecial();
                             break;
-                        case 4:  
+                        case 4:
                             contaCC.Sacar();
                             break;
                         case 5:
@@ -174,7 +170,6 @@ namespace PBancoMorangao
                         case 6:
                             contaCC.Transferir();
                             break;
-
                     }
 
                 } while (opcaoCC != 0);
@@ -184,13 +179,15 @@ namespace PBancoMorangao
             {
                 Console.Clear();
                 int opcaoP;
+
                 do
                 {
                     Console.WriteLine("0-Sair");
-                    Console.WriteLine("1-Consultar Saldo");
-                    Console.WriteLine("2-Sacar");
-                    Console.WriteLine("3-Depositar");
-                    Console.WriteLine("4-Transferir");
+                    Console.WriteLine("1- Voltar ao Menu Inicial");
+                    Console.WriteLine("2-Consultar Saldo");
+                    Console.WriteLine("3-Sacar");
+                    Console.WriteLine("4-Depositar");
+                    Console.WriteLine("5-Transferir");
                     opcaoP = int.Parse(Console.ReadLine());
 
                     switch (opcaoP)
@@ -198,24 +195,25 @@ namespace PBancoMorangao
                         case 0:
                             break;
                         case 1:
+                            MenuInicial();
+                            break; 
+                        case 2:
                             contaP.ConsultarSaldo();
                             break;
-                        case 2:
+                        case 3:
                             contaP.Sacar();
                             break;
-                        case 3:
+                        case 4:
                             contaP.Depositar();
                             break;
-                        case 4:
+                        case 5:
                             contaP.Transferir();
                             break;
                     }
 
                 } while (opcaoP != 0);
-
             }
         }
-
     }
 }
 
