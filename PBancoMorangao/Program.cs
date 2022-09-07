@@ -9,7 +9,7 @@ namespace PBancoMorangao
         {
             List<Cliente> clientes = new List<Cliente>();
             List<Funcionario> funcionarios = new List<Funcionario>();
-            Agencia agencia = new Agencia();
+            List<Agencia> agencias = new List<Agencia>();
             List<ContaCorrente> contasCC = new List<ContaCorrente>();
             List<ContaPoupanca> contasP = new List<ContaPoupanca>();
 
@@ -22,6 +22,7 @@ namespace PBancoMorangao
                 Console.WriteLine("Selecione a opção desejada");
                 Console.WriteLine("1-Cliente");
                 Console.WriteLine("2-Funcionário");
+                Console.WriteLine("3- Agencia");
 
                 int opcao = int.Parse(Console.ReadLine());
 
@@ -30,9 +31,14 @@ namespace PBancoMorangao
                     MenuCliente();
                 }
 
-                else
+                else if (opcao == 2)
                 {
                     MenuFuncionario();
+                }
+
+                else
+                {
+                    MenuAgencia();
                 }
 
             }
@@ -52,7 +58,42 @@ namespace PBancoMorangao
                 Cliente encontrouCliente = clientes.Find(cliente => cliente.Cpf == cpf);
                 return encontrouCliente;
             }
+            void MenuAgencia()
+            {
+                int opcAgencia;
+                do
+                {
 
+                    Console.WriteLine("Menu Agencia");
+                    Console.WriteLine("Selecione a opcao desejada: ");
+                    Console.WriteLine("0-Sair");
+                    Console.WriteLine("1-Voltar ao Menu Inicial");
+                    Console.WriteLine("2-Cadastrar Agência");
+                    Console.WriteLine("3-Consultar Agência");
+                    opcAgencia = int.Parse(Console.ReadLine());
+                    switch (opcAgencia)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            MenuInicial();
+                            break;
+                        case 2:
+                            Agencia agencia = new Agencia();
+                            agencia.CadastrarAgencia();
+                            agencias.Add(agencia);
+                            break;
+                        case 3:
+                            foreach (Agencia consultarAgencia in agencias)
+                            {
+                                consultarAgencia.ImprimirAgencia();
+                            }
+                            break;
+
+                    }
+                } while (opcAgencia != 0);
+
+            }
             void MenuCliente()
             {
                 int opcCliente;
@@ -170,7 +211,14 @@ namespace PBancoMorangao
                             break;
                         case 4:
                             Funcionario funcionario = new Funcionario();
-                            funcionario.CadastrarFuncionario();
+                            foreach (Agencia consultarAgencia in agencias)
+                            {
+                                consultarAgencia.ImprimirAgencia();
+                            }
+                            Console.WriteLine("Digite o numero da agencia: ");
+                            int numeroagencia = int.Parse(Console.ReadLine());
+                            Agencia encontrouAgencia = agencias.Find(agencia => agencia.NumeroAgencia == numeroagencia);
+                            funcionario.CadastrarFuncionario(encontrouAgencia);
                             funcionarios.Add(funcionario);
                             break;
                         case 5:
@@ -213,7 +261,7 @@ namespace PBancoMorangao
                                 ContaCorrente novaContacc = encontrouFuncionario3.AprovarAberturaContaCC(encontrarCliente2, tipoConta, numeroConta, senha, saldo, limiteChequeEspecial);
                                 contasCC.Add(novaContacc);
                                 ContaPoupanca novaContaP = encontrouFuncionario3.AprovarAberturaContaP(encontrarCliente2, tipoConta, numeroConta, senha, saldo);
-                                contasP.Add(novaContaP);    
+                                contasP.Add(novaContaP);
                             }
                             break;
                     }

@@ -18,10 +18,11 @@ namespace PBancoMorangao
 
         public void CadastrarAgencia()
         {   
-            endereco = new Endereco();
+            this.endereco = new Endereco();
             Console.WriteLine("Informe o numero da agência: ");
             this.NumeroAgencia = int.Parse(Console.ReadLine());
             endereco.CadastrarEndereco(); 
+
         }
 
         public void ImprimirAgencia()

@@ -21,20 +21,20 @@ namespace PBancoMorangao
             this.Cargo = cargo;
         }
 
-        public void CadastrarFuncionario()
+        public void CadastrarFuncionario(Agencia agencia)
         {
             base.CadastrarPessoa();
-            agencia = new Agencia();
             Console.WriteLine("Cargo (Normal / Gerente): ");
             this.Cargo = Console.ReadLine();
-            // escolher entre as agencias já cadastradas agencia.CadastrarAgencia();
+            this.agencia = agencia; 
         }
 
         public void ImprimirCadastroFuncionario()
         {
             base.ImprimirCadastro();
             Console.WriteLine("Cargo: " + this.Cargo);
-            //agencia.ImprimirAgencia();
+            agencia.ImprimirAgencia(); 
+           
         }
 
         public  bool VerificarTipoFuncionario(Cliente cliente, string tipoConta)
